@@ -43,7 +43,7 @@ php artisan breeze:install #blade
 composer require pacificdev/laravel_9_preset
 
 #solo per versione 9
-php artisan preset:ui bootstrap
+php artisan preset:ui bootstrap --auth
 
 npm install bootstrap axios @fortawesome/fontawesome-free sass
 
