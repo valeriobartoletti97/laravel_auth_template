@@ -171,3 +171,31 @@ php artisan make:request StoreMomemodelRequest
 
 
 ```
+
+```bash
+#in app/Providers/RouteServiceProvider.php modifico
+public const HOME = '/admin';
+
+# Se l’utente non è autenticato, sarà dirottato automaticamente verso la pagina di login.
+# Questo comportamento è modificabile nel file in app/Http/Middleware/Authenticate.php
+
+php artisan make:controller Admin/DashboardController
+# nel controller
+public function index(){
+        return view('admin.dashboard');
+    }
+
+Route::middleware(['auth', 'verified'])
+   ->name('admin.')
+   ->prefix('admin')
+   ->group(function () {
+         Route::get('/', [DashboardController::class, 'index'])
+         ->name('dashboard');
+   });
+
+....
+
+Route::fallback(function() {
+    return redirect()->route('admin.dashboard');
+});
+```
